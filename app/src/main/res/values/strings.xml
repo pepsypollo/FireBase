@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">FireBase</string>
+    <string name="tEnviar">No puedes enviar mensajes si no estas registrado</string>
+
+</resources>
