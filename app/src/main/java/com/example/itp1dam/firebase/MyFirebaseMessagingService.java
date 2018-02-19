@@ -27,28 +27,16 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
     private static final String LOGTAG = "MyFirebaseMessagingService";
 
     @Override
-    public void onMessageReceived(RemoteMessage remoteMessage)
-    {
-        String titulo = "", texto = "", imagen = "";
+    public void onMessageReceived(RemoteMessage remoteMessage) {
+        String titulo = "", texto = "";
 
         // Mensaje de notificación
-        if (remoteMessage.getNotification() != null)
-        {
+        if (remoteMessage.getNotification() != null) {
             titulo = remoteMessage.getNotification().getTitle();
             texto = remoteMessage.getNotification().getBody();
         }
 
-        // Mensaje de datos
-        if(remoteMessage.getData() != null)
-        {
-            imagen = remoteMessage.getData().get("imagen");
-        }
-
-        // Muestro la notificación con datos
-        if( imagen != null )
-            showNotificationv3(titulo, texto, getBitmapfromUrl(imagen));
-        else
-            showNotificationv3(titulo, texto, null);
+        showNotification(titulo, texto);
     }
 
     /**
@@ -63,10 +51,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
                         .setSmallIcon(android.R.drawable.stat_sys_warning)
                         .setContentTitle(title)
                         .setContentText(text);
-
-        NotificationManager notificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(0, notificationBuilder.build());
     }
 
