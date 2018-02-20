@@ -4,6 +4,7 @@ import android.os.StrictMode;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,24 +38,24 @@ public class PHP {
         return enviado;
     }
 
-    public String[] getUsers() throws PHPException {
+    public String[] getUserNames() throws PHPException {
         JSONParser parser = new JSONParser();
         JSONArray datos;
-        ArrayList users = new ArrayList();
 
         try {
+            System.out.println("fuk of"+lUsers);
             datos = parser.getJSONArrayFromUrl(lUsers,null);
-            String[] username = new String[datos.length()];
-            String[] pass = new String[datos.length()];
-            String[] token = new String[datos.length()];
-            for (int i = 0; i>datos.length(); i++){
-                username[i] = datos.getJSONObject(i).getString("username");
-                pass[i] = datos.getJSONArray(i).getString(1);
-                token[i] = datos.getJSONArray(i).getString(2);
-            }
-            return username;
+            System.out.println("shit");
+            /*System.out.println("fuk"+datos);
+            String[] users = new String[datos.length()];
+            /*for (int i = 0; i>datos.length(); i++){
+                users[i] = datos.getJSONArray(i).getString(0);
+                System.out.println(lUsers+users[i]);
+            }*/
+            return new String[1];
         } catch (IOException | JSONException e) {
-            throw new PHPException(e.toString());
+            System.err.println("error");
         }
+        return new String[1];
     }
 }

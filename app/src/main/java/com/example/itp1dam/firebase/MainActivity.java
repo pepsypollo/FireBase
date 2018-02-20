@@ -1,8 +1,6 @@
 package com.example.itp1dam.firebase;
 
 import android.app.Dialog;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,7 +13,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.messaging.FirebaseMessagingService;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -70,13 +67,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bDCancel.setOnClickListener(this);
         bDRegister.setOnClickListener(this);
 
-        try {
-            String[] username = php.getUsers();
-            System.out.println("fuk"+username[0]);
-            lista.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, username));
-        } catch (PHPException e) {
-            e.printStackTrace();
-        }
+        lista.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, new String[]{"fuk","succ"}));
 
         // Recibido Firebase
         if (getIntent().getExtras() != null) {
@@ -90,6 +81,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
 
+    }
+
+    public void actualizarLista(){
+        try {
+            String[] username = php.getUserNames();
+            lista.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, username));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public String getTokenAplicacion() {
@@ -107,6 +107,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 dLogin.show();
                 break;
             case R.id.bElimReg:
+                actualizarLista();
                 getTokenAplicacion();
                 break;
             case R.id.bDCancel:
